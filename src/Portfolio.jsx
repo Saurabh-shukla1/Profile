@@ -117,7 +117,7 @@ const Portfolio = () => {
       items: [
         { name: 'Node.js', icon: <Server className="w-5 h-5" /> },
         { name: 'Python', icon: <Code className="w-5 h-5" /> },
-        { name: 'PostgreSQL', icon: <Database className="w-5 h-5" /> },
+        { name: 'Firebase', icon: <Database className="w-5 h-5" /> },
         { name: 'AWS', icon: <Box className="w-5 h-5" /> }
       ] 
     },
@@ -303,20 +303,20 @@ const Portfolio = () => {
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
               Hello, I'm <span className="text-blue-600">Saurabh Shukla</span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-600 mb-4">
               Full Stack Developer | UI/UX Enthusiast | Problem Solver | Data Science Enthusiast
             </p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-center space-x-4 mb-4">
               <a href="https://github.com/Saurabh-shukla1" className="text-gray-600 hover:text-gray-900 px-4 py-2">
              <GithubIcon className="w-5 h-5" />Github
               </a>
               <a href="https://www.linkedin.com/in/saurabh-shukla-a459b7256/" className="text-gray-600 hover:text-gray-900 px-4 py-2">
               <LinkedinIcon className="w-5 h-5" />Linkedin
               </a>
-              <a href="https://www.linkedin.com/in/saurabh-shukla-a459b7256/" className="text-gray-600 hover:text-gray-900 px-4 py-2">
+              <a href="https://www.instagram.com/saurabh_.shukla/" className="text-gray-600 hover:text-gray-900 px-4 py-2">
               <Instagram className="w-5 h-5" />Instagram
               </a>
-              <a href="SaurabhShukla6392@gmail.com" className="text-gray-600 hover:text-gray-900 px-4 py-2">
+              <a href="mailto:SaurabhShukla6392@gmail.com" className="text-gray-600 hover:text-gray-900 px-4 py-2">
                 <MailIcon className="w-5 h-5" />Mail
               </a>
             </div>
@@ -337,22 +337,22 @@ const Portfolio = () => {
               </div>
               <div>
                 <h3 className="text-2xl font-semibold mb-4">My Journey</h3>
-                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
                 I am a passionate and detail-oriented BSc IT graduate with a strong foundation in Data Science, Machine Learning, and Generative AI. My expertise includes exploratory data analysis (EDA), machine learning models, and data-driven decision-making. I have hands-on experience working with React, Vite, and Firebase etc. for web development.
                 </p>
-                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
                   I'm passionate about solving complex problems and creating intuitive user 
                   experiences. My approach combines technical expertise with creative 
                   problem-solving to deliver high-quality solutions.
                 </p>
-                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
                 I enjoy solving complex problems and continuously learning new technologies to 
                 enhance my skills. Currently, I am seeking opportunities where I can apply my
                  knowledge, collaborate with a dynamic team, and contribute to impactful
                   projects.
                 </p>
                 
-                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
                 Let’s connect and create something amazing together!
                 </p>
               </div>
