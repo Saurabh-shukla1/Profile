@@ -26,6 +26,7 @@ import {
   Mail,
   MessageCircle  
 } from 'lucide-react';
+import HomeSection from './components/Home';
 
 
 
@@ -192,6 +193,8 @@ const Portfolio = () => {
     }
   ];
 
+ 
+
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
@@ -292,36 +295,11 @@ const Portfolio = () => {
       {/* Main Content */}
       <main className="pt-16">
         {/* Hero Section */}
-        <section 
-          ref={sectionRefs.home}
-          className={`min-h-screen flex items-center justify-center transition-opacity duration-1000 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'} ${
-            isVisible ? 'opacity-100' : 'opacity-0'
-            
-          }`}
-        >
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
-              Hello, I'm <span className="text-blue-600">Saurabh Shukla</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-4">
-              Full Stack Developer | UI/UX Enthusiast | Problem Solver | Data Science Enthusiast
-            </p>
-            <div className="flex justify-center space-x-4 mb-4">
-              <a href="https://github.com/Saurabh-shukla1" className="text-gray-600 hover:text-gray-900 px-4 py-2">
-             <GithubIcon className="w-5 h-5" />Github
-              </a>
-              <a href="https://www.linkedin.com/in/saurabh-shukla-a459b7256/" className="text-gray-600 hover:text-gray-900 px-4 py-2">
-              <LinkedinIcon className="w-5 h-5" />Linkedin
-              </a>
-              <a href="https://www.instagram.com/saurabh_.shukla/" className="text-gray-600 hover:text-gray-900 px-4 py-2">
-              <Instagram className="w-5 h-5" />Instagram
-              </a>
-              <a href="mailto:SaurabhShukla6392@gmail.com" className="text-gray-600 hover:text-gray-900 px-4 py-2">
-                <MailIcon className="w-5 h-5" />Mail
-              </a>
-            </div>
-          </div>
-        </section>
+        <HomeSection 
+        sectionRef={sectionRefs.home}
+        isDarkMode={isDarkMode}
+        isVisible={true}
+      />
 
         {/* About Section */}
         <section ref={sectionRefs.about} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
@@ -330,13 +308,13 @@ const Portfolio = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="relative">
                 <img
-                  src="/profile.jpg"
+                  src="/Profile.png"
                   alt="Profile"
                   className="rounded-lg shadow-lg w-full"
                 />
               </div>
               <div>
-                <h3 className="text-2xl font-semibold mb-4">My Journey</h3>
+                <h3 className="text-2xl font-semibold mb-4">About Me</h3>
                 <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
                 I am a passionate and detail-oriented BSc IT graduate with a strong foundation in Data Science, Machine Learning, and Generative AI. My expertise includes exploratory data analysis (EDA), machine learning models, and data-driven decision-making. I have hands-on experience working with React, Vite, and Firebase etc. for web development.
                 </p>
