@@ -27,6 +27,7 @@ import {
   MessageCircle  
 } from 'lucide-react';
 import HomeSection from './components/Home';
+import AnimatedProfileImage from './components/profile';
 
 
 
@@ -41,6 +42,7 @@ const Portfolio = () => {
     email: '',
     message: ''
   });
+  const imageRef = useRef(null);
 
   // Creating refs for each section for smooth scrolling
   const sectionRefs = {
@@ -50,6 +52,7 @@ const Portfolio = () => {
     projects: useRef(null),
     certifications: useRef(null),
     contact: useRef(null)
+
   };
 
   useEffect(() => {
@@ -217,9 +220,9 @@ const Portfolio = () => {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`text-gray-600 hover:text-gray-900 transition-colors ${
+                  className={`text-gray-600 hover:text-gray-300 transition-colors ${
                     activeSection === item.toLowerCase() ? 'text-blue-600' : ''
-                  }`}
+                  } ${isDarkMode ? 'text-white hover:text-2xl transition-colors' : 'text-gray-600 hover:text-gray-900 transition-colors'}`}
                 >
                   {item}
                 </button>
@@ -304,18 +307,21 @@ const Portfolio = () => {
         {/* About Section */}
         <section ref={sectionRefs.about} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}" >About Me</h2>
+            <h2 className="text-3xl font-bold text-center mb-12 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}" >My Journey</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="relative">
-                <img
+                {/*<img
                   src="/Profile.png"
                   alt="Profile"
                   className="rounded-lg shadow-lg w-full"
-                />
+                />*/}
+                <div className="max-w-md"> {/* Adjust width as needed */}
+                    <AnimatedProfileImage sectionRef={imageRef} />
+                </div>
               </div>
               <div>
                 <h3 className="text-2xl font-semibold mb-4">About Me</h3>
-                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
+                <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-50' : 'text-gray-600' }`}>
                 I am a passionate and detail-oriented BSc IT graduate with a strong foundation in Data Science, Machine Learning, and Generative AI. My expertise includes exploratory data analysis (EDA), machine learning models, and data-driven decision-making. I have hands-on experience working with React, Vite, and Firebase etc. for web development.
                 </p>
                 <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
@@ -417,13 +423,13 @@ const Portfolio = () => {
                   <div className="flex space-x-4">
                     <a
                       href={project.github}
-                      className="text-gray-600 hover:text-blue-900 "
+                      className="text-gray-400 hover:text-blue-600 "
                     >
                       View Code →
                     </a>
                     <a
                       href={project.live}
-                      className="text-gray-600 hover:text-blue-900 "
+                      className="text-gray-400 hover:text-blue-600 "
                     >
                       Live Demo →
                     </a>
