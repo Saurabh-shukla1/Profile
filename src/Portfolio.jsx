@@ -24,7 +24,7 @@ import {
   Send,
   User,
   Mail,
-  MessageCircle  
+  MessageCircle
 } from 'lucide-react';
 import HomeSection from './components/Home';
 import AnimatedProfileImage from './components/profile';
