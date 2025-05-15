@@ -43,7 +43,7 @@ const AnimatedProfileImage = ({ sectionRef = null }) => {
   return (
     <div ref={sectionRef} className="overflow-hidden">
       <img
-        src="/Profile.png"
+        src="/image.png"
         alt="Profile"
         className={`rounded-lg shadow-lg w-full transition-all duration-1000 transform
           ${showImage 

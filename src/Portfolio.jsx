@@ -32,6 +32,7 @@ import AnimatedProfileImage from './components/profile';
 
 
 
+
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -112,7 +113,8 @@ const Portfolio = () => {
         { name: 'React', icon: <Atom className="w-5 h-5" /> },
         { name: 'TypeScript', icon: <Codepen className="w-5 h-5" /> },
         { name: 'Tailwind CSS', icon: <Laptop className="w-5 h-5" /> },
-        { name: 'Next.js', icon: <Box className="w-5 h-5" /> }
+        { name: 'Next.js', icon: <Box className="w-5 h-5" /> },
+        { name: 'Redux', icon: <Box className="w-5 h-5" /> }
       ] 
     },
 
@@ -193,6 +195,13 @@ const Portfolio = () => {
       technologies: ['HTML/CSS/JS', 'Flask', 'Firebase'],
       github: 'https://github.com/Saurabh-shukla1/PresentationPilot',
       live: 'https://presentationpilot.onrender.com'
+    },
+    {
+      title: 'AI_ImageEnhancer',
+      description: 'A web app that enhances images using AI',
+      technologies: ['React', 'Web3forms', 'Tailwind CSS', 'JavaScript'],
+      github: 'https://github.com/Saurabh-shukla1/ImageEnhancer',
+      live: 'https://image-enhancer-ecru.vercel.app/'
     }
   ];
 
@@ -228,7 +237,7 @@ const Portfolio = () => {
                 </button>
               ))}
               <a
-                href="/resume.pdf"
+                href="/Updated.pdf"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 download
               >
@@ -322,7 +331,12 @@ const Portfolio = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-4">About Me</h3>
                 <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-50' : 'text-gray-600' }`}>
-                I am a passionate and detail-oriented BSc IT graduate with a strong foundation in Data Science, Machine Learning, and Generative AI. My expertise includes exploratory data analysis (EDA), machine learning models, and data-driven decision-making. I have hands-on experience working with React, Vite, and Firebase etc. for web development.
+                 Full Stack Developer with a solid foundation in both frontend and backend technologies.
+                  Proficient in building responsive user interfaces using React.js, HTML, CSS, and JavaScript, 
+                  and skilled in backend development with Node.js, Express.js, and database systems like MongoDB and SQL.
+                   Completed multiple self-driven projects demonstrating strong problem-solving skills, API integration,
+                    and version control with Git. Quick learner with a passion for building scalable web applications and
+                     contributing to collaborative development teams.
                 </p>
                 <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
                   I'm passionate about solving complex problems and creating intuitive user 
