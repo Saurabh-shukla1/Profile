@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import './profile.css';
 
-const AnimatedProfileImage = ({ sectionRef = null }) => {
+const AnimatedProfileImage = ({ sectionRef = null, isDarkMode }) => {
   const [showImage, setShowImage] = useState(false);
 
   useEffect(() => {
@@ -41,17 +42,34 @@ const AnimatedProfileImage = ({ sectionRef = null }) => {
   }, [sectionRef]);
 
   return (
-    <div ref={sectionRef} className="overflow-hidden">
-      <img
-        src="/image.png"
-        alt="Profile"
-        className={`rounded-lg shadow-lg w-full transition-all duration-1000 transform
-          ${showImage 
-            ? 'opacity-100 translate-y-0 translate-x-0 scale-100' 
-            : 'opacity-0 translate-y-10 translate-x-10 scale-95'
-          }
-        `}
-      />
+    <div ref={sectionRef} className="overflow-hidden relative p-3 rounded-lg">
+      {/* Animated border container */}
+      <div className="absolute inset-0 rounded-lg">
+        {/* Outer rotating gradient */}
+        <div className="absolute inset-0 rounded-lg border-[6px] border-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 animate-border-rotate opacity-100" />
+        
+        {/* Inner rotating gradient for extra glow */}
+        <div className="absolute inset-[3px] rounded-lg border-[4px] border-transparent bg-gradient-to-l from-blue-400 via-purple-400 to-pink-400 animate-border-rotate-reverse opacity-70" />
+        
+        {/* Background fill */}
+        <div className={`absolute inset-[6px] rounded-lg ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`} />
+      </div>
+
+      {/* Image container with glow effect */}
+      <div className="relative rounded-lg overflow-hidden">
+        <img
+          src="/image.png"
+          alt="Profile"
+          className={`w-full transition-all duration-1000 transform
+            ${showImage 
+              ? 'opacity-100 translate-y-0 translate-x-0 scale-100' 
+              : 'opacity-0 translate-y-10 translate-x-10 scale-95'
+            }
+          `}
+        />
+        {/* Overlay glow effect */}
+        <div className={`absolute inset-0 ${isDarkMode ? 'glow-effect-dark' : 'glow-effect-light'}`} />
+      </div>
     </div>
   );
 };

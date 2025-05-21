@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import HomeSection from './components/Home';
 import AnimatedProfileImage from './components/profile';
+import ScrollAnimation from './components/ScrollAnimation';
 
 
 
@@ -37,7 +38,7 @@ const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isVisible, setIsVisible] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -58,7 +59,23 @@ const Portfolio = () => {
 
   useEffect(() => {
     setIsVisible(true);
+    // Load theme preference from localStorage, default to dark mode if not set
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      setIsDarkMode(false);
+    }
   }, []);
+
+  // Save theme preference to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    // Optional: Update HTML class for global dark mode styling
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   // Function to handle smooth scrolling
   const scrollToSection = (sectionId) => {
@@ -212,9 +229,9 @@ const Portfolio = () => {
   };
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-gray-100' : 'bg-gray-100 text-gray-900'}`}>
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full shadow-sm z-50 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <nav className={`fixed top-0 w-full shadow-lg z-50 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <span className={`text-xl font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-800'}`}>
@@ -314,7 +331,11 @@ const Portfolio = () => {
       />
 
         {/* About Section */}
-        <section ref={sectionRefs.about} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+        <section ref={sectionRefs.about} className={`py-20 ${
+          isDarkMode 
+            ? 'bg-gray-800' 
+            : 'bg-gray-100 shadow-md'
+        }`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-center mb-12 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}" >My Journey</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -351,7 +372,7 @@ const Portfolio = () => {
                 </p>
                 
                 <p className={`text-gray-600 mb-6  ${isDarkMode ? 'text-gray-600' : 'text-gray-50'}`}>
-                Let’s connect and create something amazing together!
+                Let's connect and create something amazing together!
                 </p>
               </div>
             </div>
@@ -360,95 +381,105 @@ const Portfolio = () => {
 
         {/* Skills Section */}
 
-        <section ref={sectionRefs.skills} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
+        <section ref={sectionRefs.skills} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className={`text-3xl font-bold text-center mb-12 ${isDarkMode ? 'text-gray-100' : ''}`}>
-              Skills & Technologies
-            </h2>
+            <ScrollAnimation animation="fade-up">
+              <h2 className={`text-3xl font-bold text-center mb-12 ${isDarkMode ? 'text-gray-100' : ''}`}>
+                Skills & Technologies
+              </h2>
+            </ScrollAnimation>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {skills.map(({ category, items }) => (
-                <div 
-                  key={category}
-                  className={`p-6 rounded-lg hover:shadow-lg transition-shadow ${
+              {skills.map(({ category, items }, index) => (
+                <ScrollAnimation 
+                  key={category} 
+                  animation={index % 2 === 0 ? 'fade-right' : 'fade-left'}
+                >
+                  <div className={`p-6 rounded-lg hover:shadow-lg transition-shadow ${
                     isDarkMode 
                       ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' 
                       : 'bg-gray-50 hover:shadow-lg'
-                  }`}
-                >
-                  <h3 className="text-xl font-semibold mb-4">{category}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {items.map(item => (
-                      <div
-                        key={item.name}
-                        className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
-                          isDarkMode 
-                            ? 'bg-gray-600 text-gray-200' 
-                            : 'bg-blue-100 text-blue-800'
-                        }`}
-                      >
-                        {item.icon}
-                        {item.name}
-                      </div>
-                    ))}
+                  }`}>
+                    <h3 className="text-xl font-semibold mb-4">{category}</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {items.map(item => (
+                        <div
+                          key={item.name}
+                          className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
+                            isDarkMode 
+                              ? 'bg-gray-600 text-gray-200' 
+                              : 'bg-blue-100 text-blue-800'
+                          }`}
+                        >
+                          {item.icon}
+                          {item.name}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </ScrollAnimation>
               ))}
             </div>
           </div>
         </section>
 
         {/* Projects Section */}
-        <section ref={sectionRefs.projects} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-            <h2 className={`text-3xl font-bold text-center mb-12 ${isDarkMode ? 'text-gray-100' : ''}`}>Projects</h2>
+        <section ref={sectionRefs.projects} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollAnimation animation="fade-up">
+              <h2 className={`text-3xl font-bold text-center mb-12 ${isDarkMode ? 'text-gray-100' : ''}`}>
+                Projects
+              </h2>
+            </ScrollAnimation>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projects.map(project => (
-                <div
+              {projects.map((project, index) => (
+                <ScrollAnimation 
                   key={project.title}
-                  className={`p-6 rounded-lg hover:shadow-lg transition-shadow ${
-                    isDarkMode 
-                      ? 'bg-gray-700 text-gray-200 ' 
-                      : 'bg-gray-50'
-                  }`}
+                  animation={index % 2 === 0 ? 'zoom-in' : 'zoom-out'}
                 >
-                  <h3 
-                  className={`text-xl font-semibold mb-2 ${
+                  <div className={`p-6 rounded-lg hover:shadow-lg transition-shadow ${
                     isDarkMode 
                       ? 'bg-gray-700 text-gray-200' 
                       : 'bg-gray-50'
-                  }`}>{project.title}</h3>
-                  <p 
-                  className={`${
-                    isDarkMode 
-                      ? 'bg-gray-700 text-gray-200' 
-                      : 'bg-gray-50'
-                  }`}
-                  >{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map(tech => (
-                      <span
-                        key={tech}
-                        className="px-2 py-1 bg-gray-100 text-gray-800 rounded text-sm"
+                  }`}>
+                    <h3 
+                    className={`text-xl font-semibold mb-2 ${
+                      isDarkMode 
+                        ? 'bg-gray-700 text-gray-200' 
+                        : 'bg-gray-50'
+                    }`}>{project.title}</h3>
+                    <p 
+                    className={`${
+                      isDarkMode 
+                        ? 'bg-gray-700 text-gray-200' 
+                        : 'bg-gray-50'
+                    }`}
+                    >{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.technologies.map(tech => (
+                        <span
+                          key={tech}
+                          className="px-2 py-1 bg-gray-100 text-gray-800 rounded text-sm"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex space-x-4">
+                      <a
+                        href={project.github}
+                        className="text-gray-400 hover:text-blue-600 "
                       >
-                        {tech}
-                      </span>
-                    ))}
+                        View Code →
+                      </a>
+                      <a
+                        href={project.live}
+                        className="text-gray-400 hover:text-blue-600 "
+                      >
+                        Live Demo →
+                      </a>
+                    </div>
                   </div>
-                  <div className="flex space-x-4">
-                    <a
-                      href={project.github}
-                      className="text-gray-400 hover:text-blue-600 "
-                    >
-                      View Code →
-                    </a>
-                    <a
-                      href={project.live}
-                      className="text-gray-400 hover:text-blue-600 "
-                    >
-                      Live Demo →
-                    </a>
-                  </div>
-                </div>
+                </ScrollAnimation>
               ))}
             </div>
           </div>
@@ -456,59 +487,67 @@ const Portfolio = () => {
 
 
         {/* Certifications Section */}
-        <section ref={sectionRefs.certifications} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <section ref={sectionRefs.certifications} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className={`text-3xl font-bold text-center mb-12 ${isDarkMode ? 'text-gray-100' : ''}`}>
-              Certifications
-            </h2>
+            <ScrollAnimation animation="fade-up">
+              <h2 className={`text-3xl font-bold text-center mb-12 ${isDarkMode ? 'text-gray-100' : ''}`}>
+                Certifications
+              </h2>
+            </ScrollAnimation>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {certifications.map((cert) => (
-                <div
+              {certifications.map((cert, index) => (
+                <ScrollAnimation 
                   key={cert.credentialId}
-                  className={`p-6 rounded-lg transition-shadow hover:shadow-xl ${
-                    isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-50 hover:shadow-lg'
-                  }`}
+                  animation={
+                    index % 3 === 0 ? 'fade-right' : 
+                    index % 3 === 1 ? 'fade-up' : 
+                    'fade-left'
+                  }
                 >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className={`p-2 rounded-full ${
-                      isDarkMode ? 'bg-gray-600' : 'bg-blue-100'
-                    }`}>
-                      {cert.icon}
+                  <div className={`p-6 rounded-lg transition-shadow hover:shadow-xl ${
+                    isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-50 hover:shadow-lg'
+                  }`}>
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className={`p-2 rounded-full ${
+                        isDarkMode ? 'bg-gray-600' : 'bg-blue-100'
+                      }`}>
+                        {cert.icon}
+                      </div>
+                      <h3 className="text-xl font-semibold">{cert.name}</h3>
                     </div>
-                    <h3 className="text-xl font-semibold">{cert.name}</h3>
+                    <div className="space-y-2">
+                      <p className={`flex items-center gap-2 ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                      }`}>
+                        <Award className="w-4 h-4" />
+                        {cert.issuer}
+                      </p>
+                      <p className={`flex items-center gap-2 ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                      }`}>
+                        <Calendar className="w-4 h-4" />
+                        {cert.date}
+                      </p>
+                      <p className={`flex items-center gap-2 ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                      }`}>
+                        <IdCard className="w-4 h-4" />
+                        {cert.credentialId}
+                      </p>
+                      <a
+                        href={cert.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-2 mt-4 ${
+                          isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
+                        }`}
+                      >
+                        Verify Certificate
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <p className={`flex items-center gap-2 ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
-                      <Award className="w-4 h-4" />
-                      {cert.issuer}
-                    </p>
-                    <p className={`flex items-center gap-2 ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
-                      <Calendar className="w-4 h-4" />
-                      {cert.date}
-                    </p>
-                    <p className={`flex items-center gap-2 ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
-                      <IdCard className="w-4 h-4" />
-                      {cert.credentialId}
-                    </p>
-                    <a
-                      href={cert.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 mt-4 ${
-                        isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
-                      }`}
-                    >
-                      Verify Certificate
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
+                </ScrollAnimation>
               ))}
             </div>
           </div>
@@ -516,9 +555,13 @@ const Portfolio = () => {
         
         
         {/* Contact Section */}
-        <section ref={sectionRefs.contact} className={`py-20 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className={`text-3xl font-bold text-center mb-12 ${isDarkMode ? 'text-gray-100' : ''}`}>
+        <section ref={sectionRefs.contact} className={`py-20 ${
+          isDarkMode 
+            ? 'bg-gray-800' 
+            : 'bg-gray-100 shadow-md'
+        }`}>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 border-2 border-gray-300 rounded-lg shadow-lg p-8">
+          <h2 className={`text-3xl font-bold text-center mb-12 ${isDarkMode ? 'text-gray-100' : 'text-gray-800'}`}>
             Get In Touch
           </h2>
           <form 
@@ -547,7 +590,7 @@ const Portfolio = () => {
                 className={`w-full px-4 py-2 rounded-lg ${
                   isDarkMode 
                     ? 'bg-gray-700 text-gray-200 border-gray-600' 
-                    : 'bg-white border-gray-300'
+                    : 'bg-gray-200 border-gray-300'
                 } focus:ring-2 focus:ring-blue-500`}
               />
             </div>
@@ -566,7 +609,7 @@ const Portfolio = () => {
                 className={`w-full px-4 py-2 rounded-lg ${
                   isDarkMode 
                     ? 'bg-gray-700 text-gray-200 border-gray-600' 
-                    : 'bg-white border-gray-300'
+                    : 'bg-gray-200 border-gray-300'
                 } focus:ring-2 focus:ring-blue-500`}
               />
             </div>
@@ -585,7 +628,7 @@ const Portfolio = () => {
                 className={`w-full px-4 py-2 rounded-lg ${
                   isDarkMode 
                     ? 'bg-gray-700 text-gray-200 border-gray-600' 
-                    : 'bg-white border-gray-300'
+                    : 'bg-gray-200 border-gray-300'
                 } focus:ring-2 focus:ring-blue-500`}
               ></textarea>
             </div>

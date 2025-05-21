@@ -1,0 +1,71 @@
+@keyframes border-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes border-rotate-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Gradient animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border-rotate {
+  animation: 
+    border-rotate 8s linear infinite,
+    gradient-shift 3s ease infinite;
+  background-size: 400% 400%;
+}
+
+.animate-border-rotate-reverse {
+  animation: 
+    border-rotate-reverse 8s linear infinite,
+    gradient-shift 3s ease infinite;
+  background-size: 400% 400%;
+}
+
+/* Glow effects */
+.glow-effect-dark {
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.15) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+
+.glow-effect-light {
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.1) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Enhanced border glow for dark mode */
+@media (prefers-color-scheme: dark) {
+  .animate-border-rotate,
+  .animate-border-rotate-reverse {
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3));
+  }
+} 
